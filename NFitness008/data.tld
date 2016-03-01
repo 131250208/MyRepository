@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<user id="u_00001">
+
+    <data type="target">
+        <height>183</height>
+        <weight>68</weight>
+        <distance>10000</distance>
+        <calory>350</calory>
+        <sleepDuration>09:00:00</sleepDuration>
+    </data>
+    <data type="sports">
+        <duration>5:00</duration>
+        <calory>200</calory>
+        <distance>6878</distance>
+    </data>
+    <data type="status">
+        <height>183</height>
+        <weight>68</weight>
+        <age>21</age>
+        <heartrate>45</heartrate>
+        <bloodpress>115 73</bloodpress>
+    </data>
+    <data type="sleep">
+        <begintime>2015-10-26 22:15:23</begintime>
+        <endtime>2015-10-27 7:19:33</endtime>
+        <duration>09:04:10</duration>
+        <deviation>4:10</deviation>
+    </data>
+
+</user>
+

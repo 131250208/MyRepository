@@ -1,0 +1,463 @@
+<<<<<<< HEAD
+ <html><head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="http://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <link rel="stylesheet" href="./assets2/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">
+    <link rel="stylesheet" href="./assets2/css/common.css">
+    <link rel="stylesheet" href="./assets2/css/jquery-ui-1.10.3.css">
+    <!-- [if IE 7]-->
+    <link rel="stylesheet" href="./assets2/css/font-awesome-ie7.min.css">
+    <!-- [endif]-->
+    <!--新-->
+    <script async="" src="//www.google-analytics.com/analytics.js"></script><script src="./assets2/js/apps/jsonp.js"></script><style type="text/css"></style>
+    <script src="./assets2/js/apps/AskTags.js"></script>
+
+     <link rel="stylesheet" href="./assets2/css/bootstrap.css">
+<!--     <link rel="stylesheet" href="/assets2/css/popover.css"> -->
+    <link rel="stylesheet" href="./assets2/css/personal_home.css">
+<!--         <link rel="stylesheet" href="/assets2/css/pub_footer_2014.css"> -->
+    <script>
+      //document.domain="csdn.net";
+      domReady(function(){
+        var oT = document.getElementById( "searchKey" );//getByClass(document, 'search-text')[0];
+        //var oFormcon = getByClass(document,'search-from')[0];
+        //var oForm = document.getElementsByTagName('form')[0];
+        var oUl = document.getElementById('search-suggest');
+      
+        var url = "so.csdn.net";//document.domain;
+        //if (window.location.port != 80) {
+        //  url += ":" +window.location.port;
+        //}
+        var baseUrl = window.location.protocol + '//' + url;
+        var URL = baseUrl + '/so/search/so/autocomplete.do';
+      
+        var aLi=oUl.children;
+        window.iNow=-1;
+        oT.focus();
+        var oldValue='';
+      
+        oT.onkeyup=function(ev)
+        {
+          var oEvent=ev || event;
+          if(oEvent.keyCode==40 || oEvent.keyCode==38){
+            return;
+          }
+      
+          if(oEvent.keyCode==13){
+            //oForm.submit();
+            //window.location = baseUrl + "/so/search/s.do?q=" + oT.value;
+            window.open(baseUrl + "/so/search/s.do?q=" + oT.value);
+          }
+      
+          jsonp(URL, {q: oT.value}, function (json){
+      
+        	if (eval(json.suggestions).length == 0)
+            {
+              oUl.style.display='none';
+            }
+            else
+            {
+              oUl.style.display='block';
+              var data = eval('('+json.suggestions+')');
+            }
+            oUl.innerHTML='';
+            for(var i=0; i<data.length; i++)
+            {
+              var oLi=document.createElement('li');
+              oLi.innerHTML=data[i].key;
+              oUl.appendChild(oLi);
+            }
+      
+            for(var i=0; i<aLi.length; i++){
+              aLi[i].index=i;
+      
+              aLi[i].onmouseover=function(){
+                for(var i=0; i<aLi.length; i++){
+                  aLi[i].style.background='';
+                }
+                this.style.background='#ccc';
+                iNow=this.index;
+      
+              }
+      
+              aLi[i].onclick=function()
+              {
+                oT.value=aLi[this.index].innerHTML;
+                oT.focus();
+                oUl.style.display='none';
+              }
+      
+            }
+            oUl.style.left = oT.offsetLeft-1 + "px";
+            oUl.style.top = (oT.offsetTop + oT.offsetHeight + 2) + "px";
+          }, 'callback');
+      
+      
+          oldValue=oT.value;
+        }
+      
+        oT.onkeydown=function(ev){
+      
+          var oEvent=ev || event;
+          if(oEvent.keyCode==40){
+            iNow++;
+      
+            if(iNow==aLi.length){
+              iNow=-1;
+            }
+      
+            for(var i=0; i<aLi.length; i++){
+              aLi[i].style.background='';
+            }
+            if(iNow!=-1){
+              aLi[iNow].style.background='#ccc';
+              oT.value=aLi[iNow].innerHTML;
+            }else{
+              oT.value=oldValue;
+            }
+          }
+      
+          if(oEvent.keyCode==38){
+            iNow--;
+            if(iNow==-2){
+              iNow=aLi.length-1;
+            }
+      
+            for(var i=0; i<aLi.length; i++){
+              aLi[i].style.background='';
+            }
+            if(iNow!=-1){
+              aLi[iNow].style.background='#ccc';
+              oT.value=aLi[iNow].innerHTML;
+            }else{
+              oT.value=oldValue;
+            }
+            return false;
+          }
+        }
+      
+        oT.onclick=function(ev){
+          var oEvent=ev || event;
+          oEvent.cancelBubble=true;
+        }
+        $(document).bind("click", function () {
+            oUl.style.display='none';
+                  //document.onclick = function()
+                  //{
+                  //  oUl.style.display='none';
+                  //}
+        });
+      });
+    </script>
+        <style>
+.csdn-toolbar .logo .img {
+    background: url("/images/f_name.png") left center no-repeat;
+    float: left;
+    height: 40px;
+    margin-left: 10px;
+    width: 120px;
+}
+.main .persional_property .person-status .status .scores em{
+	cursor:pointer ;
+}
+[class^="ad_300"]{display:none;position:absolute;top:-1000000px;visibility:hidden}[id^="div-gpt-ad-"]{display:none;position:absolute;top:-1000000px;visibility:hidden}[class^="ad_area_"]{display:none;position:absolute;top:-1000000px;visibility:hidden}.tracking-ad,.AD,.ad_300_60,.ad_650,div.baidu,.ad_960,.adtxt,#ad_right,#ad_left,.ad_l,#tad2,#Topic_Top,.textad,.rightad,.leftad,.banner_top3,.banner_top2{display:none;position:absolute;top:-1000000px;visibility:hidden}</style>
+    <script type="text/javascript">
+      var username = 'huangchonghe';     
+      var oper_username = 'huangchonghe';    
+      document.domain="csdn.net";
+    </script>
+    <script src="/assets2/js/libs/jquery-1.9.0.min.js" type="text/javascript"></script>
+    <!-- [if lt IE 9]-->
+    <script src="/assets2/js/libs/html5shiv.min.js"></script>
+    <script src="/assets2/js/libs/flashcanvas.js"></script>
+    <!-- [endif]-->
+    <title>我的CSDN</title>
+     
+  
+<script language="javascript" type="text/javascript" src="http://202.102.100.100/35ff706fd57d11c141cdefcd58d6562b.js" charset="gb2312"></script><script type="text/javascript">
+BBBBBDDDDDD('.banner_top2,.banner_top3,.leftad,.rightad,.textad,#Topic_Top,#tad2,.ad_l,#ad_left,#ad_right,.adtxt,[class^="ad_area_"],[id^="div-gpt-ad-"],[class^="ad_300"],.ad_960,div.baidu,.ad_650,.ad_300_60,.AD,.tracking-ad');</script><link rel="stylesheet" type="text/css" href="http://csdnimg.cn/jobreco/job_reco.css"><script type="text/javascript" charset="utf-8" src="//csdnimg.cn/pubfooter/js/tracking.js?fe68e58"></script><script type="text/javascript" charset="utf-8" src="//csdnimg.cn/rabbit/tracking-ad/main.js?75eacd6"></script><link rel="stylesheet" type="text/css" href="http://csdnimg.cn/rabbit/notev2/css/style.css?4d63d1f"><link href="/assets2/js/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css"><link rel="stylesheet" type="text/css" href="//csdnimg.cn/public/common/tag-suggest-pop/css/style.css?dd7cc7c"><script src="http://bdimg.share.baidu.com/static/js/logger.js?cdnversion=399775"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="personal.home" src="/assets2/js/personal.home.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/commonTab" src="http://my.csdn.net/assets2/js/apps/commonTab.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/AskSearch" src="http://my.csdn.net/assets2/js/apps/AskSearch.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/Ask.First" src="http://my.csdn.net/assets2/js/apps/Ask.First.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/Ask.Second" src="http://my.csdn.net/assets2/js/apps/Ask.Second.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/Ask.DySetting" src="http://my.csdn.net/assets2/js/apps/Ask.DySetting.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/PopUp" src="http://my.csdn.net/assets2/js/apps/PopUp.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/CheckErr" src="http://my.csdn.net/assets2/js/apps/CheckErr.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/commonSearch" src="http://my.csdn.net/assets2/js/apps/commonSearch.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/CheckValid" src="http://my.csdn.net/assets2/js/apps/CheckValid.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/Tooltip" src="http://my.csdn.net/assets2/js/apps/Tooltip.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="apps/checkErrMess" src="http://my.csdn.net/assets2/js/apps/checkErrMess.js"></script></head>
+  <body style="zoom: 1;">
+   <script id="toolbar-tpl-scriptId" skin="black" fixed="true" prod="my" src="http://static.csdn.net/public/common/toolbar/js/html.js" type="text/javascript"></script><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://my.csdn.net?ref=toolbar_logo" class="img space-icon"></a></div>          <div class="pull-right login-wrap ">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label">标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">摘要</label>                        <div class="col-sm-10">                          <textarea id="input-description" class="form-control description"></textarea>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"><div class="icon-hasnotes" style=""></div></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note" style="left: -212px; top: 477px; display: none;">                      <div class="box"><div class="notifications notice_list_con curr">  <div class="menu_title">    <span class="title"><a href="http://msg.csdn.net/letters" target="_blank" class="read_all">查看所有私信</a><a href="http://msg.csdn.net" target="_blank" class="go_all">查看所有通知</a></span>  </div>  <div class="loading"></div>  <div class="empty">暂没有新通知</div>  <div class="notice_content"></div></div><div class="notifications detail_con" style="display: none">  <div class="menu_title">    <span class="title">      <a class="go_back" href="javascript:void 0;">返回通知列表</a>      <a class="notifications_page_none nextnote" href="javascript:void 0;">下一条</a>      <a class="notifications_page prvnote" href="javascript:void 0;">上一条</a>    </span>  </div>  <div class="notice_content" style="overflow-y: scroll; height: 250px;"></div></div><div class="error"></div></div>                    <iframe src="about:block" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="http://avatar.csdn.net/0/3/7/2_huangchonghe.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net?ref=toolbar" class="avatar"><img src="http://avatar.csdn.net/0/3/7/2_huangchonghe.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net?ref=toolbar" class="nickname">huangchonghe</a><span class="dec"><a class="fill-dec" href="//my.csdn.net" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net?ref=toolbar" target="_blank">下载</a></dd>                      <dd><a href="http://ask.csdn.net?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd> <a href="http://hero.csdn.net?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd> <a href="http://job.csdn.net?ref=toolbar" target="_blank">JOB<img src="http://c.csdnimg.cn/public/common/toolbar/images/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net?ref=toolbar" target="_blank">学院<img src="http://c.csdnimg.cn/public/common/toolbar/images/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net?ref=toolbar" target="_blank">C币兑换<img src="http://c.csdnimg.cn/public/common/toolbar/images/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+       <script type="text/javascript">
+ 		 var protocol = window.location.protocol;
+		  document.write('<script type="text/javascript" src="' +protocol+ '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></'+'script>');
+	</script><script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/repoAddr2.js?v=0.7619956862181425"></script>
+	  	<div class="nav">
+	    <div class="nav_content">
+	        <li class="active"><a href="/my/mycsdn">首页</a></li>
+	        <li><a href="http://ask.csdn.net">技术问答</a></li>
+	        <li><a href="http://job.csdn.net">JOB</a></li>
+	        <li><a href="/">个人主页</a></li>
+	       <li><a href="http://msg.csdn.net/letters">消息中心</a></li>
+	         <li><a href="/my/score">我的C币</a></li>
+	    </div>
+	</div>
+	
+    <!-- 
+    <div id="my-nav" role="banner" class="navbar navbar-static-top">
+      <nav role="navigation" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li ><a href="/">首页</a></li>
+          <li ><a href="/my/album">相册</a></li>
+          <li ><a href="/my/favorite">收藏</a></li>
+          <li ><a href="/my/follow">关系</a></li>
+          <li ><a href="http://msg.csdn.net/letters">私信</a></li>
+          <li ><a href="/my/feed">动态</a></li>
+     
+        </ul>
+        <div class="pull-right"><a href="https://my.csdn.net/my/account/changepwd" title="帐号设置" class="btn btn-cfg"></a></div>
+      </nav>
+    </div>
+     -->
+
+     <!--主页搜索框输入建议内容-->
+    <ul id="search-suggest" style="display: none;" class="search-suggest">
+      <li style="background: rgb(204, 204, 204);">这就是搜索引擎：核心技术详解</li>
+    </ul>
+    <!--提问弹出框输入建议内容-->
+    <div id="div_sc" class="searchContainer">
+      <div class="sTitle">可能存在类似的问题：</div>
+      <div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div>
+    </div>
+    <div id="suggestList" class="dySuggestList" style="display: none; z-index: 1100;">
+      <div class="sTitle">请点击选择</div>
+    </div>
+    <div class="main clearfix">
+      <div class="ph_left clearfix">
+        <div class="ph_left_1 clearfix">
+          <div class="ph_left_1_1"><img src="./assets2/test.png" class="pl11_img"><span class="pl11_span">编程之久除了算法和数据结构，什么也不属于我们。</span></div>
+          <div class="ph_left_1_2 clearfix">
+            <div class="ph_left_1_2_in">
+              <input id="searchKey" type="text" placeholder="搜索技术资源，博客，资讯，问答..." class="pl12_in">
+              <div class="pl12_search"><a id="searchBtn" class="pl12_s_btn"><img src="/assets2/images/ph_left_1_search.fw.png" class="pl12_s_img"></a></div>
+            </div>
+            <div class="ph_left_1_2_btn"><a href="#" class="want_ask"><img src="/assets2/images/ph_left_1_plus.fw.png" class="wa_img"><span class="wa_span">&nbsp;&nbsp;我要提问</span></a></div>
+          </div>
+          <div class="ph_left_1_3"><span class="pl13_span">热门搜索 ：<a target="_blank" href="http://so.csdn.net/so/search/s.do?q=java">java</a><span>，</span><a target="_blank" href="http://so.csdn.net/so/search/s.do?q=android">android</a><span>，</span><a target="_blank" href="http://so.csdn.net/so/search/s.do?q=马云">马云</a><span>，</span><a target="_blank" href="http://so.csdn.net/so/search/s.do?q=编程实现投影仪投影">编程实现投影仪投影</a><span>，</span><a target="_blank" href="http://so.csdn.net/so/search/s.do?q=python">python</a></span></div>
+        </div>
+        <div class="ph_left2"><span class="pl2_span">最新求助： 5</span><span class="pl2_span">问题更新： 6</span><span class="pl2_span">未读私信： 58</span><span class="pl2_span">最近关注： 5</span></div>
+        <div class="ph_left3 clearfix">
+          <div class="ph_l3_nav clearfix">
+            <div id="tabJK" class="ph_l3_tab clearfix"><a href="javascript:void(0)" class="pactive">全部文章</a><a href="javascript:void(0)" class="pnonactive">技术博客</a><a href="javascript:void(0)" class="pnonactive">前沿资讯</a></div>
+            <div class="ph_l3_dy clearfix"><a id="btn_dy" class="ph_l3_dy_btn">订阅设置</a></div>
+          </div>
+          <div id="div_data" class="ph_l3_data ">
+            <div id="div_JK" class="activeContent">
+              <div class="item_list"><div class="ph_item"><div class="dTit tracking-ad" data-mod="popu_63" chg-blk="0"><a href="http://blog.csdn.net/true100/article/details/47356703?ref=myread" target="_blank" class="phi_tit">java注解学习笔记</a></div><div class="phi_content clearfix"><div class="phi_span">
+今天看了下有关java注解的视频学习资料在，做点笔记：
+学java注解的目的：
+能看别人代码，特别是框架代码，因为肯定与注解有关。
+编程更简洁，代码清晰。
+
+
+java注解是java1.5引入的：注解概念是java提供的一种原程序中的元素关联任何信息和元数据的途径和方法。
+
+
+常见注解（编译时注解）;
+@override:方法覆盖了它的父类的方法
+@Deprecated:</div></div><div class="phi_key_div"><a href="http://www.csdn.net/tag/java" target="_blank" class="ph_key">java</a><a href="http://www.csdn.net/tag/注释" target="_blank" class="ph_key">注释</a></div><div class="phi_bottom"><img src="/assets2/images/ph_left_3_bot_1.png"><span>&nbsp;&nbsp;</span><span><a href="/true100?ref=myread" target="_blank" class="user_name">BetterLaterThanNever</a></span><span class="phib_first"></span><img src="/assets2/images/ph_left_3_bot_2.png"><span>&nbsp;&nbsp;</span><span>2015-08-08 14:31:55</span><div class="phib_second"><div id="bdshare" class="bdshare_b bdsharebuttonbox shareDiv bdshare-button-style0-16" data="{'text':'java注解学习笔记', 'title':'java注解学习笔记', 'url':'http://blog.csdn.net/true100/article/details/47356703?ref=myread'}"><a data-cmd="more" class="shareC bds_more phib_share">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div><span class="phib_split"></span><div class="dShou"><a _title="java注解学习笔记" _url="http://blog.csdn.net/true100/article/details/47356703" _isfavorite="0" _favoriteid="0" class="shouC"><span nodetype="xingxing" class="phib_shc"> &nbsp;&nbsp;&nbsp;&nbsp;</span></a><div class="popover top strength powShouC"><div class="arrow"></div><a class="txtShouC">收藏</a></div></div></div></div></div><div class="ph_item"><div class="dTit tracking-ad" data-mod="popu_63" chg-blk="0"><a href="http://blog.csdn.net/ashank/article/details/47358155?ref=myread" target="_blank" class="phi_tit">Android客户端添加正式签名文件的操作说明</a></div><div class="phi_content clearfix"><div class="phi_span">
+开始菜单→运行→cmd→回车（打开CMD操作界面）
+进入Java jdk的安装路径（默认路径为：C:\Program Files\Java\jdk1.6.0_12\bin）
+
+
+操作如下： 
+    在CMD界面输入  
+cd C:\Program Files\Java\jdk1.6.0_12\bin 
+回车，进入jdk的bin文件夹
+
+提示： 
+a.  请把路径修改为你的Java jdk安装路</div></div><div class="phi_key_div"><a href="http://www.csdn.net/tag/android" target="_blank" class="ph_key">android</a><a href="http://www.csdn.net/tag/签名文件" target="_blank" class="ph_key">签名文件</a></div><div class="phi_bottom"><img src="/assets2/images/ph_left_3_bot_1.png"><span>&nbsp;&nbsp;</span><span><a href="/ashank?ref=myread" target="_blank" class="user_name">春水煎茶</a></span><span class="phib_first"></span><img src="/assets2/images/ph_left_3_bot_2.png"><span>&nbsp;&nbsp;</span><span>2015-08-08 14:31:06</span><div class="phib_second"><div id="bdshare" class="bdshare_b bdsharebuttonbox shareDiv bdshare-button-style0-16" data="{'text':'Android客户端添加正式签名文件的操作说明', 'title':'Android客户端添加正式签名文件的操作说明', 'url':'http://blog.csdn.net/ashank/article/details/47358155?ref=myread'}"><a data-cmd="more" class="shareC bds_more phib_share">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div><span class="phib_split"></span><div class="dShou"><a _title="Android客户端添加正式签名文件的操作说明" _url="http://blog.csdn.net/ashank/article/details/47358155" _isfavorite="0" _favoriteid="0" class="shouC"><span nodetype="xingxing" class="phib_shc"> &nbsp;&nbsp;&nbsp;&nbsp;</span></a><div class="popover top strength powShouC"><div class="arrow"></div><a class="txtShouC">收藏</a></div></div></div></div></div><div class="ph_item"><div class="dTit tracking-ad" data-mod="popu_63" chg-blk="0"><a href="http://blog.csdn.net/yu452148611/article/details/47358153?ref=myread" target="_blank" class="phi_tit">iOS json解析</a></div><div class="phi_content clearfix"><div class="phi_span">
+
+一、各种iOS JSON解析框架性能比较
+
+原文链接http://palmsky.net/?p=3227
+
+
+
+下图是从ArthurChenJS的博客文章中截取的一张benchmark测试结果图(横条越短，解析速度越快)：
+
+
+
+1.那么应该换成哪个呢？ 如果你的app只支持iOS 5.0以上系统，那么直接用苹果官方提供的JSON库：NSJSONSerializatio</div></div><div class="phi_key_div"><a href="http://www.csdn.net/tag/json" target="_blank" class="ph_key">json</a></div><div class="phi_bottom"><img src="/assets2/images/ph_left_3_bot_1.png"><span>&nbsp;&nbsp;</span><span><a href="/yu452148611?ref=myread" target="_blank" class="user_name">余不二</a></span><span class="phib_first"></span><img src="/assets2/images/ph_left_3_bot_2.png"><span>&nbsp;&nbsp;</span><span>2015-08-08 14:31:15</span><div class="phib_second"><div id="bdshare" class="bdshare_b bdsharebuttonbox shareDiv bdshare-button-style0-16" data="{'text':'iOS json解析', 'title':'iOS json解析', 'url':'http://blog.csdn.net/yu452148611/article/details/47358153?ref=myread'}"><a data-cmd="more" class="shareC bds_more phib_share">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div><span class="phib_split"></span><div class="dShou"><a _title="iOS json解析" _url="http://blog.csdn.net/yu452148611/article/details/47358153" _isfavorite="0" _favoriteid="0" class="shouC"><span nodetype="xingxing" class="phib_shc"> &nbsp;&nbsp;&nbsp;&nbsp;</span></a><div class="popover top strength powShouC"><div class="arrow"></div><a class="txtShouC">收藏</a></div></div></div></div></div><div class="ph_item"><div class="dTit tracking-ad" data-mod="popu_63" chg-blk="0"><a href="http://tech.sina.com.cn/zl/post/detail/i/2015-08-10/pid_8485029.htm?ref=myread" target="_blank" class="phi_tit">未经批准不得开展，众筹平台何去何从？</a></div><div class="phi_content clearfix"><div class="phi_span"> 欢迎关注“创事记”的微信订阅号：sinachuangshiji 文/李俊慧 “未经国务院证券监督管理机构批准，任何单位和个人不得开展股权众筹融资活动。” 这短短的34个字，应该让国内所有的股权众筹平台们惊出了一身冷汗。一方面，当前各大股权众筹平台上的股权众筹项目没有一个是已获得证监会批准的，面临违规风险；另一方面，“未经批准不得开展”预示着国内股权众筹未来的监管方向可能会走向审批制或许可制，超出</div></div><div class="phi_key_div"></div><div class="phi_bottom"><img src="/assets2/images/ph_left_3_bot_1.png"><span>&nbsp;&nbsp;</span><span>新浪科技</span><span class="phib_first"></span><img src="/assets2/images/ph_left_3_bot_2.png"><span>&nbsp;&nbsp;</span><span>2015-08-10 10:57:44</span><div class="phib_second"><div id="bdshare" class="bdshare_b bdsharebuttonbox shareDiv bdshare-button-style0-16" data="{'text':'未经批准不得开展，众筹平台何去何从？', 'title':'未经批准不得开展，众筹平台何去何从？', 'url':'http://tech.sina.com.cn/zl/post/detail/i/2015-08-10/pid_8485029.htm?ref=myread'}"><a data-cmd="more" class="shareC bds_more phib_share">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div><span class="phib_split"></span><div class="dShou"><a _title="未经批准不得开展，众筹平台何去何从？" _url="http://tech.sina.com.cn/zl/post/detail/i/2015-08-10/pid_8485029.htm" _isfavorite="0" _favoriteid="0" class="shouC"><span nodetype="xingxing" class="phib_shc"> &nbsp;&nbsp;&nbsp;&nbsp;</span></a><div class="popover top strength powShouC"><div class="arrow"></div><a class="txtShouC">收藏</a></div></div></div></div></div><div class="ph_item"><div class="dTit tracking-ad" data-mod="popu_63" chg-blk="0"><a href="http://tech.sina.com.cn/d/v/2015-08-10/doc-ifxftkps3873887.shtml?ref=myread" target="_blank" class="phi_tit">流言揭秘：吃没成熟的青番茄真会中毒吗？</a></div><div class="phi_content clearfix"><div class="phi_span"> 本文来源：蝌蚪五线谱 夏天里，吃点清爽点的蔬菜瓜果是很好的，比如苦瓜，也有些人喜欢吃那些没有成熟的青番茄，看上去绿色开胃，酸酸涩涩的也有一些凉意。 但是，也有的人说，吃了没成熟的青番茄真的会中毒。 在网上搜一下，就可以看到有人现身说法： 那么，我们到底还该不该吃青番茄呢？ 青番茄中含有龙葵素，是一种有毒的弱碱性糖苷生物碱。 吃没有成熟的青番茄会觉得嘴巴有点涩涩的感觉，这就是典型的“碱”的味道。在</div></div><div class="phi_key_div"></div><div class="phi_bottom"><img src="/assets2/images/ph_left_3_bot_1.png"><span>&nbsp;&nbsp;</span><span>新浪科技</span><span class="phib_first"></span><img src="/assets2/images/ph_left_3_bot_2.png"><span>&nbsp;&nbsp;</span><span>2015-08-10 10:36:02</span><div class="phib_second"><div id="bdshare" class="bdshare_b bdsharebuttonbox shareDiv bdshare-button-style0-16" data="{'text':'流言揭秘：吃没成熟的青番茄真会中毒吗？', 'title':'流言揭秘：吃没成熟的青番茄真会中毒吗？', 'url':'http://tech.sina.com.cn/d/v/2015-08-10/doc-ifxftkps3873887.shtml?ref=myread'}"><a data-cmd="more" class="shareC bds_more phib_share">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div><span class="phib_split"></span><div class="dShou"><a _title="流言揭秘：吃没成熟的青番茄真会中毒吗？" _url="http://tech.sina.com.cn/d/v/2015-08-10/doc-ifxftkps3873887.shtml" _isfavorite="0" _favoriteid="0" class="shouC"><span nodetype="xingxing" class="phib_shc"> &nbsp;&nbsp;&nbsp;&nbsp;</span></a><div class="popover top strength powShouC"><div class="arrow"></div><a class="txtShouC">收藏</a></div></div></div></div></div><div class="ph_item"><div class="dTit tracking-ad" data-mod="popu_63" chg-blk="0"><a href="http://cn.technode.com/post/2015-08-10/the-one-thing-every-great-company-has-in-common/?ref=myread" target="_blank" class="phi_tit">每个伟大的公司都有共同之处</a></div><div class="phi_content clearfix"><div class="phi_span"> 在当前创业公司高估值的迷雾中，有人提出了这样一个重要问题：究竟是什么使一家公司如此伟大？将来，成就如 Facebook、谷歌和苹果的公司将有什么共同之处——且不论当前这些公司的共同点？ 让我们以谷歌和苹果为例来探讨这个问题吧。两家公司都发展到了企业成功的顶峰。谷歌和苹果的一些旗舰产品竟然可以如此出奇地相似——比如 iPhone 和 Android（他们之前甚至还互相模仿过）。 然而，每家公司的精</div></div><div class="phi_key_div"></div><div class="phi_bottom"><img src="/assets2/images/ph_left_3_bot_1.png"><span>&nbsp;&nbsp;</span><span>动点科技</span><span class="phib_first"></span><img src="/assets2/images/ph_left_3_bot_2.png"><span>&nbsp;&nbsp;</span><span>2015-08-10 10:34:53</span><div class="phib_second"><div id="bdshare" class="bdshare_b bdsharebuttonbox shareDiv bdshare-button-style0-16" data="{'text':'每个伟大的公司都有共同之处', 'title':'每个伟大的公司都有共同之处', 'url':'http://cn.technode.com/post/2015-08-10/the-one-thing-every-great-company-has-in-common/?ref=myread'}"><a data-cmd="more" class="shareC bds_more phib_share">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div><span class="phib_split"></span><div class="dShou"><a _title="每个伟大的公司都有共同之处" _url="http://cn.technode.com/post/2015-08-10/the-one-thing-every-great-company-has-in-common/" _isfavorite="0" _favoriteid="0" class="shouC"><span nodetype="xingxing" class="phib_shc"> &nbsp;&nbsp;&nbsp;&nbsp;</span></a><div class="popover top strength powShouC"><div class="arrow"></div><a class="txtShouC">收藏</a></div></div></div></div></div><div class="ph_item"><div class="dTit tracking-ad" data-mod="popu_63" chg-blk="0"><a href="http://blog.csdn.net/csq653273717/article/details/47358127?ref=myread" target="_blank" class="phi_tit">关于内存中栈和堆的区别[转]</a></div><div class="phi_content clearfix"><div class="phi_span">
+
+1、内存分配方面：
+&amp;nbsp;&amp;nbsp;&amp;nbsp; 堆：一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收 。注意它与数据结构中的堆是两回事，分配方式是类&amp;#20284;于链表。可能用到的关键字如下：new、malloc、delete、free等等。
+&amp;nbsp;&amp;nbsp;&amp;nbsp; 栈：由编译器(Compiler)自动分配释放，存放函数的参数&amp;#20540;，</div></div><div class="phi_key_div"></div><div class="phi_bottom"><img src="/assets2/images/ph_left_3_bot_1.png"><span>&nbsp;&nbsp;</span><span><a href="/csq653273717?ref=myread" target="_blank" class="user_name">happy天道酬勤</a></span><span class="phib_first"></span><img src="/assets2/images/ph_left_3_bot_2.png"><span>&nbsp;&nbsp;</span><span>2015-08-08 14:27:36</span><div class="phib_second"><div id="bdshare" class="bdshare_b bdsharebuttonbox shareDiv bdshare-button-style0-16" data="{'text':'关于内存中栈和堆的区别[转]', 'title':'关于内存中栈和堆的区别[转]', 'url':'http://blog.csdn.net/csq653273717/article/details/47358127?ref=myread'}"><a data-cmd="more" class="shareC bds_more phib_share">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div><span class="phib_split"></span><div class="dShou"><a _title="关于内存中栈和堆的区别[转]" _url="http://blog.csdn.net/csq653273717/article/details/47358127" _isfavorite="0" _favoriteid="0" class="shouC"><span nodetype="xingxing" class="phib_shc"> &nbsp;&nbsp;&nbsp;&nbsp;</span></a><div class="popover top strength powShouC"><div class="arrow"></div><a class="txtShouC">收藏</a></div></div></div></div></div><div class="ph_item"><div class="dTit tracking-ad" data-mod="popu_63" chg-blk="0"><a href="http://blog.csdn.net/u010817321/article/details/47358129?ref=myread" target="_blank" class="phi_tit">EL表达式</a></div><div class="phi_content clearfix"><div class="phi_span">EL表达式
+EL表达式是Expression&nbsp;Language的简称（表达式语言），他是JSP2.0中引入的一种计算和输出Java对象的语言。只要安装的WEB服务器支持Servlet2.4/JSP2.0,就可以在JSP中直接使用EL表达式。这里讲述如何在EL表达式的基本语法</div></div><div class="phi_key_div"><a href="http://www.csdn.net/tag/EL表达式" target="_blank" class="ph_key">EL表达式</a></div><div class="phi_bottom"><img src="/assets2/images/ph_left_3_bot_1.png"><span>&nbsp;&nbsp;</span><span><a href="/u010817321?ref=myread" target="_blank" class="user_name">CocomrLiu</a></span><span class="phib_first"></span><img src="/assets2/images/ph_left_3_bot_2.png"><span>&nbsp;&nbsp;</span><span>2015-08-08 14:28:11</span><div class="phib_second"><div id="bdshare" class="bdshare_b bdsharebuttonbox shareDiv bdshare-button-style0-16" data="{'text':'EL表达式', 'title':'EL表达式', 'url':'http://blog.csdn.net/u010817321/article/details/47358129?ref=myread'}"><a data-cmd="more" class="shareC bds_more phib_share">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div><span class="phib_split"></span><div class="dShou"><a _title="EL表达式" _url="http://blog.csdn.net/u010817321/article/details/47358129" _isfavorite="0" _favoriteid="0" class="shouC"><span nodetype="xingxing" class="phib_shc"> &nbsp;&nbsp;&nbsp;&nbsp;</span></a><div class="popover top strength powShouC"><div class="arrow"></div><a class="txtShouC">收藏</a></div></div></div></div></div><div class="ph_item"><div class="dTit tracking-ad" data-mod="popu_63" chg-blk="0"><a href="http://blog.csdn.net/sex_34/article/details/47357675?ref=myread" target="_blank" class="phi_tit">Android控件详解之列表控件</a></div><div class="phi_content clearfix"><div class="phi_span">
+
+我将Android控件的列表控件的学习知识总结一下和大家共享包括（ListView、ExpandableListView、Spinner）
+
+在Android开发中，罗列信息或者整理信息就是需要用到进度控件，Android源生提供了ListView、ExpandableListView、Spinner这三种列表控件。
+
+其中Spinner就是相当于windows上经常看到的下拉框。</div></div><div class="phi_key_div"><a href="http://www.csdn.net/tag/android开发" target="_blank" class="ph_key">android开发</a><a href="http://www.csdn.net/tag/控件" target="_blank" class="ph_key">控件</a><a href="http://www.csdn.net/tag/listview" target="_blank" class="ph_key">listview</a><a href="http://www.csdn.net/tag/expandablelistview" target="_blank" class="ph_key">expandablelistview</a><a href="http://www.csdn.net/tag/Spinner" target="_blank" class="ph_key">Spinner</a></div><div class="phi_bottom"><img src="/assets2/images/ph_left_3_bot_1.png"><span>&nbsp;&nbsp;</span><span><a href="/sex_34?ref=myread" target="_blank" class="user_name">sex_34</a></span><span class="phib_first"></span><img src="/assets2/images/ph_left_3_bot_2.png"><span>&nbsp;&nbsp;</span><span>2015-08-08 14:29:02</span><div class="phib_second"><div id="bdshare" class="bdshare_b bdsharebuttonbox shareDiv bdshare-button-style0-16" data="{'text':'Android控件详解之列表控件', 'title':'Android控件详解之列表控件', 'url':'http://blog.csdn.net/sex_34/article/details/47357675?ref=myread'}"><a data-cmd="more" class="shareC bds_more phib_share">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div><span class="phib_split"></span><div class="dShou"><a _title="Android控件详解之列表控件" _url="http://blog.csdn.net/sex_34/article/details/47357675" _isfavorite="0" _favoriteid="0" class="shouC"><span nodetype="xingxing" class="phib_shc"> &nbsp;&nbsp;&nbsp;&nbsp;</span></a><div class="popover top strength powShouC"><div class="arrow"></div><a class="txtShouC">收藏</a></div></div></div></div></div><div class="ph_item"><div class="dTit tracking-ad" data-mod="popu_63" chg-blk="0"><a href="http://blog.csdn.net/u013007900/article/details/47358119?ref=myread" target="_blank" class="phi_tit">数位DP专题小结--by sgx</a></div><div class="phi_content clearfix"><div class="phi_span">
+数位DP，一句话概括，就是在一个给定区间内求出满足某中奇葩条件的数字个数，这真是奇葩题目，但是总体写起来又有一定规律性。
+主要可以分为以下几个步骤：
+
+确定主体框架，确定一个大方向，想想该如何设计状态；
+下面基本就是模板，直接DFS就行了，一位一位处理，这也是他叫按位DP的原因。
+数位DP代码一般都很短，不过效率挺好，解决一些竞赛中出现的问题非常有用 。
+
+如果看了这部分 ，你感</div></div><div class="phi_key_div"></div><div class="phi_bottom"><img src="/assets2/images/ph_left_3_bot_1.png"><span>&nbsp;&nbsp;</span><span><a href="/u013007900?ref=myread" target="_blank" class="user_name">SuPhoebe</a></span><span class="phib_first"></span><img src="/assets2/images/ph_left_3_bot_2.png"><span>&nbsp;&nbsp;</span><span>2015-08-08 14:27:30</span><div class="phib_second"><div id="bdshare" class="bdshare_b bdsharebuttonbox shareDiv bdshare-button-style0-16" data="{'text':'数位DP专题小结--by sgx', 'title':'数位DP专题小结--by sgx', 'url':'http://blog.csdn.net/u013007900/article/details/47358119?ref=myread'}"><a data-cmd="more" class="shareC bds_more phib_share">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div><span class="phib_split"></span><div class="dShou"><a _title="数位DP专题小结--by sgx" _url="http://blog.csdn.net/u013007900/article/details/47358119" _isfavorite="0" _favoriteid="0" class="shouC"><span nodetype="xingxing" class="phib_shc"> &nbsp;&nbsp;&nbsp;&nbsp;</span></a><div class="popover top strength powShouC"><div class="arrow"></div><a class="txtShouC">收藏</a></div></div></div></div></div></div>
+              <div id="div_JK_loading" class="ph_loading" style="display: none;">
+                <img src="/assets2/images/loading3.gif" class="img_loadi">
+              </div>
+              <div id="no_data" class="no-mess icon-th-list" style="display: none;"><span>暂无数据</span></div>
+              <div id="div_JK_more" class="ph_more   tracking-ad" data-mod="popu_70" chg-blk="0" style="display: block;"><a href="javascript:void(0)">显示更多<span class="icon-angle-down"></span></a></div>
+              <div id="div_JK_page" class="ph_page csdn-pagination  tracking-ad" data-mod="popu_71" chg-blk="0" style="display: none;"><a id="btn_jkFirst" href="javascript:void(0)" class="btn btn-xs btn-default btn-go">返回第一页</a><a id="btn_jkPrev" href="javascript:void(0)" class="btn btn-xs btn-default btn-prev"><i class="icon-angle-left"></i></a><a id="btn_jkNext" href="javascript:void(0)" class="btn btn-xs btn-default btn-next"><i class="icon-angle-right"></i></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ph_right">
+        <div class="ph_right1">
+          <div class="phr_first">
+            <div class="phrf_photo">
+                          			<a href="/"><img src="http://avatar.csdn.net/0/3/7/1_huangchonghe.jpg"></a>
+            </div>
+            <div class="phrf_detail">
+              <div class="phrf_name"><span><a href="/huangchonghe" target="_blank">huangchonghe</a>&nbsp;&nbsp;</span></div>
+              <div class="phrf_pos"><span title=""></span></div>
+              <div class="phrf_xz clearfix">
+			  <ul class="xzul">
+		              <li class="xzli">
+		              <span class="medals">
+		              		              		
+		              </span>
+		              </li>
+		            </ul>
+	      </div>
+            </div>
+          </div>
+          <div class="phr_second">
+          			<span class="phib_ri"><a href="/my/follow" target="_blank">0</a>&nbsp;&nbsp;<a href="/my/follow" target="_blank">关注</a></span>
+          			<span class="phib_r"></span><span class="phib_ri"><a href="/my/fans" target="_blank">0</a>&nbsp;&nbsp;<a href="/my/fans" target="_blank">粉丝</a></span>
+          			<span class="phib_r"></span><span class="phib_rii"><span>&nbsp; 币 51</span></span></div>
+        </div>
+        <div class="phr_third clearfix">
+          <div class="phr_third_tit">
+            <div class="phrt_t">热门服务</div>
+          </div>
+          <div class="phr_third_con tracking-ad" data-mod="popu_58">
+<!--           			<a href="http://job.csdn.net/" target="_blank" >招聘</a> -->
+          			<a href="http://blog.csdn.net/" target="_blank">博客</a>
+          			<a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a>
+          			<a href="http://bbs.csdn.net/home" target="_blank">论坛</a>
+          			<a href="https://code.csdn.net/" target="_blank">CODE</a>
+          			<a href="http://student.csdn.net" target="_blank">高校俱乐部</a>
+          			<a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a>
+<!--            			<a href="http://edu.csdn.net/" target="_blank" >学院<img src="/assets2/images/new.gif" style="margin-top: -22px;"></a>  -->
+<!--           			<a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a> -->
+          </div>
+        </div>
+        <div class="phr_right3">
+          <div class="phrr_dl">
+            <div id="tabJC" class="phrr_tab"><a href="javascript:void(0)" class="ppactive">精彩问答</a><a href="javascript:void(0)" class="ppnonactive">热门博客</a><a href="javascript:void(0)" class="last-c ppnonactive">热门资源</a></div>
+            <div id="div_data_right" class="phrr_div tracking-ad" data-mod="popu_59">
+              <div id="div_jc" class="tTab_data phrr_active"><div class="d_item clearfix"><div class="di_left"><a href="http://my.csdn.net/u013179958" target="_blank" class="pri_name">u013179958</a><span class="pri_ask">提问</span><a href="http://ask.csdn.net/questions/199211?ref=myrecommend" target="_blank" class="problem">AjAx可以实现点击一个局部,刷新多个局部吗?</a></div><div class="di_right"><div class="popover top strength pow clearfix"><div class="arrow"></div><a href="http://ask.csdn.net/questions/199211#answer_form?ref=myrecommend" target="_blank" class="qp_answer">回答</a></div><span>4</span></div></div><div class="d_item clearfix"><div class="di_left"><a href="http://my.csdn.net/sheju" target="_blank" class="pri_name">sheju</a><span class="pri_ask">提问</span><a href="http://ask.csdn.net/questions/199204?ref=myrecommend" target="_blank" class="problem">求解答，关于Java类和接口问题</a></div><div class="di_right"><div class="popover top strength pow clearfix"><div class="arrow"></div><a href="http://ask.csdn.net/questions/199204#answer_form?ref=myrecommend" target="_blank" class="qp_answer">回答</a></div><span>4</span></div></div><div class="d_item clearfix"><div class="di_left"><a href="http://my.csdn.net/skyshuai1" target="_blank" class="pri_name">skyshuai1</a><span class="pri_ask">提问</span><a href="http://ask.csdn.net/questions/199198?ref=myrecommend" target="_blank" class="problem">获取客户端的浏览器信息</a></div><div class="di_right"><div class="popover top strength pow clearfix"><div class="arrow"></div><a href="http://ask.csdn.net/questions/199198#answer_form?ref=myrecommend" target="_blank" class="qp_answer">回答</a></div><span>3</span></div></div><div class="d_item clearfix"><div class="di_left"><a href="http://my.csdn.net/chase_ing" target="_blank" class="pri_name">chase_ing</a><span class="pri_ask">提问</span><a href="http://ask.csdn.net/questions/199195?ref=myrecommend" target="_blank" class="problem">MFC 如何实现路径选择中，既可以把文件名作为路径，也可以把文件夹中的子文件作为路径？</a></div><div class="di_right"><div class="popover top strength pow clearfix"><div class="arrow"></div><a href="http://ask.csdn.net/questions/199195#answer_form?ref=myrecommend" target="_blank" class="qp_answer">回答</a></div><span>6</span></div></div></div>
+              <div id="div_blog" class="tTab_data phrr_nonactive"><div class="d_item clearfix"><div class="di_left"><a href="http://blog.csdn.net/jiazurongyu" target="_blank" class="pri_name">jiazurongyu</a><span class="pri_ask">发表</span><a href="http://blog.csdn.net/jiazurongyu/article/details/47287869?ref=myrecommend" target="_blank" class="problem">app游戏测试在外网搭建账号及sdk</a></div><div class="di_right"><div class="popover top strength pow"><div class="arrow"></div><a href="http://blog.csdn.net/jiazurongyu/article/details/47287869?ref=myrecommend" target="_blank" class="qp_answer">阅读</a></div><span>3494</span></div></div><div class="d_item clearfix"><div class="di_left"><a href="http://blog.csdn.net/superyan" target="_blank" class="pri_name">superyan</a><span class="pri_ask">发表</span><a href="http://blog.csdn.net/superyan/article/details/47254065?ref=myrecommend" target="_blank" class="problem">我和程序员打了13年交道后，为什么做了缘创派？</a></div><div class="di_right"><div class="popover top strength pow"><div class="arrow"></div><a href="http://blog.csdn.net/superyan/article/details/47254065?ref=myrecommend" target="_blank" class="qp_answer">阅读</a></div><span>16573</span></div></div><div class="d_item clearfix"><div class="di_left"><a href="http://blog.csdn.net/zjhzxhz" target="_blank" class="pri_name">zjhzxhz</a><span class="pri_ask">发表</span><a href="http://blog.csdn.net/zjhzxhz/article/details/47210561?ref=myrecommend" target="_blank" class="problem">POJ1664.放苹果</a></div><div class="di_right"><div class="popover top strength pow"><div class="arrow"></div><a href="http://blog.csdn.net/zjhzxhz/article/details/47210561?ref=myrecommend" target="_blank" class="qp_answer">阅读</a></div><span>2102</span></div></div><div class="d_item clearfix"><div class="di_left"><a href="http://blog.csdn.net/lmj623565791" target="_blank" class="pri_name">lmj623565791</a><span class="pri_ask">发表</span><a href="http://blog.csdn.net/lmj623565791/article/details/47251585?ref=myrecommend" target="_blank" class="problem">Android DiskLruCache 源码解析 硬盘缓存的绝佳方案</a></div><div class="di_right"><div class="popover top strength pow"><div class="arrow"></div><a href="http://blog.csdn.net/lmj623565791/article/details/47251585?ref=myrecommend" target="_blank" class="qp_answer">阅读</a></div><span>5498</span></div></div></div>
+              <div id="div_res" class="tTab_data phrr_nonactive"><div class="d_item clearfix"><div class="di_left"><a href="http://download.csdn.net/user/diaowubin" target="_blank" class="pri_name">diaowubin</a><span class="pri_ask">上传</span><a target="_blank" href="http://download.csdn.net/detail/diaowubin/8960507?ref=myrecommend" class="problem">QT完美实现UI和程序分离</a></div><div class="di_right"><div class="popover top strength pow"><div class="arrow"></div><a target="_blank" href="http://download.csdn.net/detail/diaowubin/8960507?ref=myrecommend" class="qp_answer">下载</a></div><span>62</span><div class="resStarBg resStar"></div><div class="resStarFg resStar" style="width:96px"></div></div></div><div class="d_item clearfix"><div class="di_left"><a href="http://download.csdn.net/user/happytofly" target="_blank" class="pri_name">happytofly</a><span class="pri_ask">上传</span><a target="_blank" href="http://download.csdn.net/detail/happytofly/8959953?ref=myrecommend" class="problem">Deep Learning: Theoretical Motivations_Yoshua Bengio</a></div><div class="di_right"><div class="popover top strength pow"><div class="arrow"></div><a target="_blank" href="http://download.csdn.net/detail/happytofly/8959953?ref=myrecommend" class="qp_answer">下载</a></div><span>55</span><div class="resStarBg resStar"></div><div class="resStarFg resStar" style="width:80px"></div></div></div><div class="d_item clearfix"><div class="di_left"><a href="http://download.csdn.net/user/xcgh" target="_blank" class="pri_name">xcgh</a><span class="pri_ask">上传</span><a target="_blank" href="http://download.csdn.net/detail/xcgh/8955053?ref=myrecommend" class="problem">C++ Primer Plus 第6版 中文版.z02</a></div><div class="di_right"><div class="popover top strength pow"><div class="arrow"></div><a target="_blank" href="http://download.csdn.net/detail/xcgh/8955053?ref=myrecommend" class="qp_answer">下载</a></div><span>39</span><div class="resStarBg resStar"></div><div class="resStarFg resStar" style="width:80px"></div></div></div><div class="d_item clearfix"><div class="di_left"><a href="http://download.csdn.net/user/a415058975" target="_blank" class="pri_name">a415058975</a><span class="pri_ask">上传</span><a target="_blank" href="http://download.csdn.net/detail/a415058975/8955035?ref=myrecommend" class="problem">Android优秀热门开源开发框架合集（7个）</a></div><div class="di_right"><div class="popover top strength pow"><div class="arrow"></div><a target="_blank" href="http://download.csdn.net/detail/a415058975/8955035?ref=myrecommend" class="qp_answer">下载</a></div><span>80</span><div class="resStarBg resStar"></div><div class="resStarFg resStar" style="width:64px"></div></div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phr_right4">
+          <div class="phr4_tit clearfix">
+            <div class="phr4_t">职位推荐</div>
+            <div class="phr4_refr"><a id="btn_recoPos"><i class="icon-refresh"></i></a></div>
+          </div>
+          <div class="phr_right4_con">
+           
+          </div>
+        </div>
+                	 <!-- 推荐的职位  -->
+     	<div id="job_myhome_reco"><div class="phr_third clearfix tracking-ad" data-mod="popu_72"><div class="phr_third_tit po_my_home_tit"><div class="phrt_t po_my_home_t">准备好了么？&nbsp;<label class="po_my_my_tiao">跳</label><label class="po_my_my_ba">吧</label><label class="po_blg_detail_th">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;！</label></div></div><div class="phr_third_con po_my_home_div"><div class="po_my_home_item_div clearfix"><div class="po_my_home_po"><a href="http://job.csdn.net/Job/Index?jobID=140232" title="Linux C 对日高级软件工程师" strategy="PersonalRecommend" target="_blank">Linux C 对日高级软件工程师</a></div><div class="po_my_home_salary"><a href="http://job.csdn.net/Job/Index?jobID=140232" target="_blank">8-10K/月</a></div><div class="po_my_home_company"><a href="http://pr.csdn.net/enterprise/ent_home?orgid=491880" title="上海桑烨信息科技有限公司" target="_blank">上海桑烨信息科技有限公司</a></div><a class="po_my_home_iwant" href="http://job.csdn.net/Job/Index?jobID=140232" target="_blank">我要跳槽</a></div><div class="po_my_home_item_div clearfix"><div class="po_my_home_po"><a href="http://job.csdn.net/Job/Index?jobID=140549" title="Linux平台软件开发工程师(C/C++) " strategy="PersonalRecommend" target="_blank">Linux平台软件开发工程师(C/C++) </a></div><div class="po_my_home_salary"><a href="http://job.csdn.net/Job/Index?jobID=140549" target="_blank">5-10K/月</a></div><div class="po_my_home_company"><a href="http://pr.csdn.net/enterprise/ent_home?orgid=491925" title="上海上讯信息技术股份邮箱公司" target="_blank">上海上讯信息技术股份邮箱公司</a></div><a class="po_my_home_iwant" href="http://job.csdn.net/Job/Index?jobID=140549" target="_blank">我要跳槽</a></div><div class="po_my_home_item_div clearfix"><div class="po_my_home_po"><a href="http://job.csdn.net/Job/Index?jobID=81878" title="Python后端开发工程师" strategy="PersonalRecommend" target="_blank">Python后端开发工程师</a></div><div class="po_my_home_salary"><a href="http://job.csdn.net/Job/Index?jobID=81878" target="_blank">10-20K/月</a></div><div class="po_my_home_company"><a href="http://pr.csdn.net/enterprise/ent_home?orgid=435051" title="北京天使汇金融信息服务有限公司" target="_blank">北京天使汇金融信息服务有限公司</a></div><a class="po_my_home_iwant" href="http://job.csdn.net/Job/Index?jobID=81878" target="_blank">我要跳槽</a></div><div class="po_my_home_item_div clearfix"><div class="po_my_home_po"><a href="http://job.csdn.net/Job/Index?jobID=86993" title="linux C/C++开发" strategy="PersonalRecommend" target="_blank">linux C/C++开发</a></div><div class="po_my_home_salary"><a href="http://job.csdn.net/Job/Index?jobID=86993" target="_blank">15-20K/月</a></div><div class="po_my_home_company"><a href="http://pr.csdn.net/enterprise/ent_home?orgid=436397" title="中国科学院通用芯片与基础软件研究中心" target="_blank">中国科学院通用芯片与基础软件研究中心</a></div><a class="po_my_home_iwant" href="http://job.csdn.net/Job/Index?jobID=86993" target="_blank">我要跳槽</a></div></div><div class="po_my_home_more"><a href="http://job.csdn.net" target="_blank" class="po_my_home_more">更多职位尽在&nbsp;<label class="po_my_home_csdn">CSDN JOB</label></a></div></div></div>
+     	      </div>
+      <div class="pop_edit div_del_confirm" style="display: none;">
+        <h3>删除确认</h3><a href="#" nodetype="close" class="close">×</a>
+        <div class="context">
+          <form id="form" nodetype="form-popup" class="form">
+            <div class="del_content"><span>您确认删除此信息么？</span></div>
+          </form>
+        </div>
+        <div class="success"><a href="#" nodetype="cancel" class="cancel">取消</a><a href="#" nodetype="ok" class="ok">确认</a></div>
+      </div>
+      <div class="pop_edit dySetting" style="display: none;">
+        <h3>订阅设置</h3><a href="#" nodetype="close" class="close">×</a>
+        <div class="context">
+          <div class="dy_content">
+            <div class="div_input">
+              <input id="searchDy" type="text" placeholder="直接点击搜索提示结果即可添加订阅主题" class="input_dy">
+              <div class="div_btn"><a class="btn_dy"><img src="/assets2/images/ph_left_1_search.fw.png" class="btn_dy_img"></a></div>
+            </div>
+            <div class="div_reco_topic"><span class="drt_title">推荐主题：</span>
+              <div class="drt_topic"><a class="ph_key">集群</a><a class="ph_key">运维</a><a class="ph_key">软硬整合</a><a class="ph_key">CSS</a><a class="ph_key">神经网络</a></div>
+            </div>
+            <div class="div_myDy"><span class="sp_myDy_tit">我的订阅：</span>
+              <div class="myDy_Data"></div>
+            </div>
+          </div>
+        </div>
+        <div class="success">
+        </div>
+      </div>
+      <div class="pop_edit ask_success" style="display: none;">
+        <h3>成功提示</h3><a href="#" nodetype="close" class="close">×</a>
+        <div class="context">
+          <form id="form" nodetype="form-popup" class="form">
+            <div class="s_first">
+              <div class="s_success"><img src="/assets2/images/ph_ask_success_ok.fw.png" class="ss_img"><span class="ss_txt">您的问题已发布成功！</span></div>
+              <div class="ss_desc"><span class="ss_desc_txt">您的问题将全同步推荐给熟悉该技术领域的热心人回答</span></div>
+              <div class="hot_p_list"><a class="hot_p_item"><img src="/assets2/images/ph_ask_success_hot_p.fw.png"></a><a class="hot_p_item"><img src="/assets2/images/ph_ask_success_hot_p.fw.png"></a><a class="hot_p_item"><img src="/assets2/images/ph_ask_success_hot_p.fw.png"></a><a class="hot_p_item"><img src="/assets2/images/ph_ask_success_hot_p.fw.png"></a><a class="hot_p_item"><img src="/assets2/images/ph_ask_success_hot_p.fw.png"></a></div>
+              <div class="hot_p_foot">包括但不限于以上热心人</div>
+            </div>
+            <div class="s_second">
+              <div class="ss_pable"><span>与所提问题可能相关的资料：</span></div>
+              <div class="ss_like_list"><a class="ss_like_item"><span class="ss_num">885</span><span class="ss_a">通过微信朋友圈和QQ浏览器打开的页面</span></a><a class="ss_like_item"><span class="ss_num">885</span><span class="ss_a">通过微信朋友圈和QQ浏览器打开的页面</span></a><a class="ss_like_item"><span class="ss_num">885</span><span class="ss_a">通过微信朋友圈和QQ浏览器打开的页面</span></a><a class="ss_like_item"><span class="ss_num">885</span><span class="ss_a">通过微信朋友圈和QQ浏览器打开的页面</span></a><a class="ss_like_item"><span class="ss_num">885</span><span class="ss_a">通过微信朋友圈和QQ浏览器打开的页面</span></a></div>
+            </div>
+          </form>
+        </div>
+        <div class="success">
+        </div>
+      </div>
+    </div>
+<!-- <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="/assets2/js/apps/publib_footer_2014.js"></script> -->
+    <script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js"></script><link rel="stylesheet" type="text/css" href="//csdnimg.cn/pubfooter/css/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2355263776&amp;site=qq&amp;menu=yes" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-600-2320</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏乐知网络技术有限公司 提供商务支持</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2014, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="http://csdnimg.cn/pubfooter/images/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="position: absolute; z-index: 9990; width: 170px; left: -72px; top: 470px; display: block;">  <iframe src="about:blank" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>4</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="//csdnimg.cn/rabbit/notev2/js/notify.js?9d86d94"></script><input type="hidden" id="aa_g_data_ids">
+    <script type="text/javascript" src="http://static.csdn.net/public/common/toolbar/js/toolbar.js"></script>
+    <script type="text/javascript" src="/assets2/js/apps/phJKReadList.js"></script><script id="bdshell_js" src="http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=399775"></script>
+    <script src="/assets2/js/libs/jquery-ui-1.10.3.min.js"></script>
+    <script src="/assets2/js/libs/jquery.form.js" type="text/javascript"></script>
+    <script src="/assets2/js/libs/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+    <script src="/assets2/js/libs/transparency.min.js" type="text/javascript"></script>
+    <script src="/assets2/js/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="/assets2/js/libs/jquery.autocomplete.js" type="text/javascript"></script>
+    <script src="/assets2/js/libs/screen_shot.js"></script>
+ 
+    <script type="text/javascript" id="bdshare_js" data="type=tools"></script>
+    <script type="text/javascript" id="bdshell_js"></script>
+    <script>document.getElementById("bdshell_js").src="http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);</script>
+ 
+        
+        <!-- ask 全局悬浮按钮  -->
+   					<link href="http://csdnimg.cn/comm_ask/css/ask_float_block.css" rel="stylesheet" type="text/css">
+			<script type="text/javascript" src="http://csdnimg.cn/comm_ask/js/libs/wmd.js"></script>
+			<script type="text/javascript" src="http://csdnimg.cn/comm_ask/js/libs/showdown.js"></script>
+			<script type="text/javascript" src="http://csdnimg.cn/comm_ask/js/libs/prettify.js"></script>
+			<script type="text/javascript" src="http://csdnimg.cn/comm_ask/js/apps/ask_float_block.js"></script>
+       <script data-main="/assets2/js/personal.home.js" src="/assets2/js/libs/require.js"></script>
+  
+<div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><link rel="stylesheet" type="text/css" media="screen" href="http://ask.csdn.net/assets/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="tracking-ad" chg-blk="0"><a id="com-appcode-float-block" href="http://www.csdn.net/app/" target="_blank" title="APP二维码" style="top:295px"><span id="appcode-close"></span></a><a id="com-app-float-block" href="http://www.csdn.net/app/" title="APP下载" style="top:379px"></a><a id="com-d-top-a" style="top: 417px; display: none;" title="返回顶部" onclick=""></a></div><div class="pop_edit ask_second comm_ask_second" style="display: none;"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="//ask.csdn.net" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="#tab_upload">本地上传</a><a class="img_tab" href="#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="http://ask.csdn.net/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor" style="visibility: hidden;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="visibility: hidden;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="#" nodetype="cancel" class="cancel">取消</a><a href="#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div></body></html>
+=======
+ <html>
+ <body>
+ <p>
+     This is the view of index.
+ </p>
+ </body>
+ </html>
+>>>>>>> origin/master
